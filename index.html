@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cande — Portfolio</title>
+  <meta name="description" content="Portfolio de Candela — Programadora frontend. Proyectos, educación y contacto.">
+  <!-- Open Graph básico -->
+  <meta property="og:title" content="Cande — Portfolio">
+  <meta property="og:description" content="Portfolio de Candela — Programadora frontend. Proyectos, educación y contacto.">
+  <meta property="og:type" content="website">
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --accent:#06b6d4; --muted:#94a3b8; --glass: rgba(255,255,255,0.03);
+      --maxw:1100px;
+      --radius:12px;
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0; background:linear-gradient(180deg,#071021 0%, #071827 100%); color:#e6eef6; -webkit-font-smoothing:antialiased;}
+    .wrap{max-width:var(--maxw); margin:36px auto; padding:24px;}
+    header{display:flex; align-items:center; justify-content:space-between; gap:16px}
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700}
+    nav a{color:var(--muted); text-decoration:none; margin-left:14px}
+    nav a:hover{color:var(--accent)}
+    .hero{display:grid; grid-template-columns:1fr 360px; gap:28px; align-items:center; margin-top:28px}
+    .hero-card{background:var(--card); padding:28px; border-radius:var(--radius); box-shadow:0 6px 24px rgba(2,6,23,0.6)}
+    h1{margin:0 0 8px 0; font-size:28px}
+    p.lead{margin:0; color:var(--muted)}
+    .cta{margin-top:18px; display:flex; gap:12px}
+    .btn{padding:10px 14px; border-radius:10px; border:0; cursor:pointer}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),#7c3aed); color:#021124}
+    .btn-ghost{background:transparent; color:var(--accent); border:1px solid rgba(255,255,255,0.06)}
+    /* Projects */
+    .projects{margin-top:28px; display:grid; gap:16px}
+    .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:16px; border-radius:12px;}
+    .card h3{margin:0 0 6px 0}
+    .tags{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
+    .tag{font-size:12px; color:var(--muted); padding:6px 8px; border-radius:8px; background:var(--glass)}
+    a.project-link{display:inline-block; margin-top:12px; color:var(--accent); text-decoration:none}
+    /* About & Skills */
+    .about-grid{display:grid; grid-template-columns:1fr 300px; gap:20px; margin-top:28px}
+    .skills{background:var(--card); padding:16px; border-radius:12px}
+    .skill-list{display:flex; flex-wrap:wrap; gap:8px}
+    .skill{background:rgba(255,255,255,0.02); padding:8px 10px; border-radius:8px; font-size:13px}
+    /* Contact */
+    footer{margin-top:32px; text-align:center; color:var(--muted); font-size:14px}
+    /* Responsive */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr;}
+      .about-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden>CL</div>
+        <div>
+          <div style="font-weight:700">Candela Lucas</div>
+          <div style="font-size:13px;color:var(--muted)">Frontend dev • Angular & React</div>
+        </div>
+      </div>
+      <nav aria-label="Navegación principal">
+        <a href="#proyectos">Proyectos</a>
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#educacion">Educación</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-card">
+          <h1>Hola, soy Candela — Programadora frontend</h1>
+          <p class="lead">Me apasiona transformar ideas en interfaces limpias, accesibles y con buena performance. Trabajo con Angular y React, y tengo experiencia en UX/UI y en proyectos full‑stack a pequeña escala.</p>
+          <div class="cta">
+            <a class="btn btn-primary" href="#proyectos">Ver proyectos</a>
+            <a class="btn btn-ghost" href="#contacto">Contactame</a>
+          </div>
+          <!-- TIP: reemplazá este párrafo por tu pitch personal (1-2 frases) -->
+        </div>
+
+        <aside style="padding:14px; border-radius:12px; background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);">
+          <h4 style="margin-top:0">Datos rápidos</h4>
+          <p style="margin:6px 0; color:var(--muted)"><strong>Ubicación:</strong> Córdoba, Argentina</p>
+          <p style="margin:6px 0; color:var(--muted)"><strong>Lenguajes:</strong> JavaScript, TypeScript, SQL</p>
+          <p style="margin:6px 0; color:var(--muted)"><strong>Stack:</strong> Angular 18, React, Node.js</p>
+          <p style="margin:6px 0;">Disponible para freelance y trabajo remoto.</p>
+        </aside>
+      </section>
+
+      <!-- PROYECTOS: se cargan desde JS (reemplazá con tus links) -->
+      <section id="proyectos" class="projects">
+        <h2 style="margin:8px 0">Proyectos</h2>
+        <p style="margin:0 0 12px 0; color:var(--muted)">Algunos proyectos seleccionados. Hacé click para ver el repo o la demo.</p>
+        <div id="grid" class="grid" aria-live="polite"></div>
+      </section>
+
+      <!-- SOBRE MÍ -->
+      <section id="sobre-mi" class="about-grid">
+        <div class="hero-card">
+          <h2>Sobre mí</h2>
+          <p style="color:var(--muted)">Soy estudiante de Ingeniería en Sistemas y trabajo como programadora frontend. Me encanta resolver problemas con código claro, testable y con diseño pensado para el usuario. Fuera del teclado, soy de Boca Juniors y me distraigo armando mini‑proyectos de UI.</p>
+
+          <h3 style="margin-top:14px">Experiencia</h3>
+          <ul style="color:var(--muted)">
+            <li><strong>Junior Frontend</strong> — Quadion Technologies (2024‑2025)</li>
+            <li><strong>Diseño UX/UI</strong> — Gamaia (2023‑2024)</li>
+            <li><strong>Testing</strong> — BitPatagonia (2021‑2022)</li>
+
+          </ul>
+        </div>
+
+        <aside class="skills">
+          <h4 style="margin-top:0">Habilidades</h4>
+          <div class="skill-list" id="skills-list">
+            <!-- JS insertará badges -->
+          </div>
+
+          <h4 style="margin-top:12px">Contacto</h4>
+          <p style="color:var(--muted); margin:4px 0">Email: <a href="mailto:candela.lucas.ush@gmail.com">candela.lucas.ush@gmail.com</a></p>
+          <p style="color:var(--muted); margin:4px 0">GitHub: <a href="#">github.com/tu-usuario</a></p>
+        </aside>
+      </section>
+
+      <!-- EDUCACIÓN -->
+      <section id="educacion" style="margin-top:22px">
+        <h2>Educación</h2>
+        <div class="grid" style="margin-top:12px">
+          <div class="card">
+            <h3>Ingeniería en Sistemas</h3>
+            <p style="color:var(--muted); margin:6px 0">Universidad Siglo 21 — cursando</p>
+          </div>
+          <div class="card">
+            <h3>UX/UI — Coderhouse</h3>
+            <p style="color:var(--muted); margin:6px 0">Cursos de diseño y UX avanzado</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACTO -->
+      <section id="contacto" style="margin-top:22px">
+        <h2>Contacto</h2>
+        <p style="color:var(--muted)">Si querés trabajar conmigo, consultar por un proyecto o sólo saludar: <a href="mailto:candela.lucas.ush@gmail.com">candela.lucas.ush@gmail.com</a></p>
+        <div style="margin-top:12px; display:flex; gap:8px">
+          <a href="#" aria-label="GitHub">GitHub</a>
+          <a href="https://www.linkedin.com/in/candela-lucas-3a8ab4200/" aria-label="Linkedin">LinkedIn</a>
+          <a href="#" aria-label="Twitter">Twitter</a>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <p>Hecho por Candela Lucas</p>
+    </footer>
+  </div>
+
+  <script>
+    // ======= DATOS: reemplazá con tus proyectos reales ======
+    const projects = [
+      {
+        title: 'App de Películas',
+        desc: 'SPA con Angular 18 que consume una API pública para mostrar películas. Incluye filtros y un carrusel responsive.',
+        tags: ['Angular', 'TypeScript', 'API'],
+        link: '#'
+      },
+      {
+        title: 'Pokedex React',
+        desc: 'Buscador de Pokémon con react-query y diseño responsivo.',
+        tags: ['React', 'Webpack', 'CSS'],
+        link: '#'
+      },
+      {
+        title: 'Admin Panel (países)',
+        desc: 'Panel de administración sin librerías externas para gestionar países y actores. Implementa modales y validaciones.',
+        tags: ['Vanilla JS', 'Accesibilidad'],
+        link: '#'
+      }
+    ];
+
+    const skills = ['Angular', 'React', 'TypeScript', 'JavaScript', 'HTML', 'CSS', 'Tailwind', 'Zod', 'React Hook Form'];
+
+    // Render proyectos
+    const grid = document.getElementById('grid');
+    projects.forEach(p=>{
+      const el = document.createElement('article'); el.className='card';
+      el.innerHTML = `<h3>${p.title}</h3><p style="color:var(--muted)">${p.desc}</p>`;
+      const tags = document.createElement('div'); tags.className='tags';
+      p.tags.forEach(t=>{ const s=document.createElement('span'); s.className='tag'; s.textContent=t; tags.appendChild(s) });
+      el.appendChild(tags);
+      const a = document.createElement('a'); a.className='project-link'; a.href=p.link; a.textContent='Ver repo / demo'; a.target='_blank' ;
+      el.appendChild(a);
+      grid.appendChild(el);
+    });
+
+    // Render skills
+    const skillsList = document.getElementById('skills-list');
+    skills.forEach(s=>{ const span=document.createElement('span'); span.className='skill'; span.textContent=s; skillsList.appendChild(span) });
+
+    // ------ Consejos rápidos: cómo editar
+    // Reemplazá los arrays `projects` y `skills` por tus datos.
+    // Cambiá la info de contacto en el HTML (buscar candela@example.com).
+
+  </script>
+</body>
+</html>
