@@ -16,20 +16,20 @@
       </div>
       <nav>
         <a href="#about">Sobre mí</a>
-        <a href="#projects">Proyectos</a>
+        <a href="#proyectos">Proyectos</a>
         <a href="#education">Educación</a>
         <a href="#contact">Contacto</a>
       </nav>
     </header>
 
     <!-- HERO (CON DATOS RÁPIDOS) -->
-    <section class="hero">
+    <section class="hero fade-section">
       <div class="hero-card">
         <h1>Hola, soy Candela 👩‍💻</h1>
         <p class="lead">Frontend Developer | Angular & React | UX/UI Design</p>
         <div class="cta">
-          <button class="btn btn-primary">Ver Proyectos</button>
-          <button class="btn btn-ghost">Contáctame</button>
+          <button class="btn btn-primary" href="#proyectos">Ver Proyectos</button>
+          <button class="btn btn-ghost" href="#contact">Contáctame</button>
         </div>
       </div>
       <div class="quick-facts">
@@ -44,7 +44,7 @@
     </section>
 
     <!-- PROYECTOS -->
-    <section id="projects" class="projects">
+    <section id="proyectos" class="projects fade-section">
       <h2>Proyectos</h2>
       <div class="grid">
         <div class="card">
@@ -61,7 +61,7 @@
     </section>
 
     <!-- SOBRE MÍ -->
-    <section id="about" class="about-grid">
+    <section id="about" class="about-grid fade-section">
       <div>
         <h2>Sobre mí</h2>
         <p>
@@ -82,17 +82,17 @@
     </section>
 
     <!-- EDUCACIÓN -->
-    <section id="education" class="education">
+    <section id="education" class="education fade-section">
       <h2>Educación</h2>
       <div class="grid">
         <div class="card">
-          <h3>🎓 Ingeniería en Sistemas</h3>
-          <p>Universidad Nacional de [Tu Universidad], en curso (2020 - Presente).</p>
+          <h3>🎓 Ingeniería en Software</h3>
+          <p>Universidad Siglo 21, en curso.</p>
           <p class="muted">Enfoque en desarrollo web y software.</p>
         </div>
         <div class="card">
-          <h3>📚 Curso de Frontend Development</h3>
-          <p>Platzi / Udemy, completado (2022).</p>
+          <h3>📚 Curso de Diseño UX/UI</h3>
+          <p>Coderhouse, completado.</p>
           <p class="muted">Angular, React y UX/UI Design.</p>
         </div>
         <!-- Agrega más cards si tienes más educación -->
@@ -100,11 +100,11 @@
     </section>
 
     <!-- CONTACTO CON FORM NETLIFY -->
-    <section id="contact" class="contact">
+    <section id="contact" class="contact fade-section">
       <h2>Contacto</h2>
       <div class="contact-card">
         <p>¿Quieres charlar sobre un proyecto o colaboración? ¡Déjame un mensaje!</p>
-        <form class="contact-form" netlify data-netlify="true" name="contacto" netlify>
+        <form class="contact-form" netlify data-netlify="true" name="contacto">
           <!-- Honeypot anti-spam (oculto) -->
           <div class="honeypot">
             <label>Si eres bot, no llenes esto: <input name="bot-field"></label>
@@ -125,18 +125,127 @@
             <textarea id="mensaje" name="mensaje" placeholder="Tu consulta..." rows="5" required></textarea>
           </div>
           <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+          <div id="form-message" class="form-message"></div> <!-- Para mensajes de éxito/error -->
         </form>
       </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
-      <p>Hecho con 💜 por Candela</p>
+      <p>Hecho por Candela</p>
       <p>
         <a href="https://github.com/candelucas9" target="_blank">GitHub</a> | 
-        <a href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
+        <a href="https://www.linkedin.com/in/candela-lucas9/" target="_blank">LinkedIn</a>
       </p>
     </footer>
   </div>
+
+  <!-- SCRIPT JS PARA ANIMACIONES Y VALIDACIONES -->
+  <script>
+    // 1. ANIMACIÓN FADE-IN EN SCROLL
+    const fadeSections = document.querySelectorAll('.fade-section');
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    fadeSections.forEach(section => {
+      section.style.opacity = '0';
+      section.style.transform = 'translateY(20px)';
+      section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(section);
+    });
+
+    // 2. VALIDACIÓN JS PARA FORM
+    const form = document.querySelector('.contact-form');
+    const emailInput = document.getElementById('email');
+    const telInput = document.getElementById('telefono');
+    const formMessage = document.getElementById('form-message');
+
+    // Regex simple para email y teléfono (ajusta para Argentina si quieres +54)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const telRegex = /^\+?[\d\s\-\$\$]{10,15}$/; // Ej: +54 11 1234-5678
+
+    // Validación en tiempo real
+    function validateInput(input, regex, errorClass = 'error') {
+      input.addEventListener('input', () => {
+        if (input.value && !regex.test(input.value)) {
+          input.classList.add(errorClass);
+          input.title = 'Formato inválido'; // Tooltip
+        } else {
+          input.classList.remove(errorClass);
+          input.title = '';
+        }
+      });
+    }
+
+    validateInput(emailInput, emailRegex);
+    validateInput(telInput, telRegex);
+
+    // Validación pre-submit
+    form.addEventListener('submit', (e) => {
+      const requiredFields = form.querySelectorAll('[required]');
+      let isValid = true;
+      let errorMsg = '';
+
+      requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+          field.classList.add('error');
+          isValid = false;
+          errorMsg = 'Por favor, completa todos los campos.';
+        } else if (field === emailInput && !emailRegex.test(field.value)) {
+          isValid = false;
+          errorMsg = 'Email inválido.';
+        } else if (field === telInput && !telRegex.test(field.value)) {
+          isValid = false;
+          errorMsg = 'Teléfono inválido (ej: +54 11 1234-5678).';
+        } else {
+          field.classList.remove('error');
+        }
+      });
+
+      if (!isValid) {
+        e.preventDefault();
+        showMessage(errorMsg, 'error');
+        return false;
+      }
+    });
+
+    // Mensaje post-submit (para Netlify)
+    form.addEventListener('submit', () => {
+      // Netlify maneja el submit; aquí simulamos éxito (puedes ajustar con fetch si quieres)
+      setTimeout(() => {
+        showMessage('¡Mensaje enviado! Te respondo pronto. 😊', 'success');
+        form.reset();
+      }, 1000); // Delay para simular envío
+    });
+
+    function showMessage(text, type) {
+      formMessage.textContent = text;
+      formMessage.className = `form-message ${type}`;
+      setTimeout(() => {
+        formMessage.textContent = '';
+        formMessage.className = 'form-message';
+      }, 5000);
+    }
+
+    // Auto-focus en nombre al llegar a contacto
+    const contactSection = document.getElementById('contact');
+    const observerContact = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        document.getElementById('nombre').focus();
+      }
+    });
+    observerContact.observe(contactSection);
+  </script>
 </body>
 </html>
