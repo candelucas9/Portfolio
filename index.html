@@ -219,42 +219,43 @@
     validateInput(telInput, telRegex);
 
     // Validación pre-submit
-    form.addEventListener('submit', (e) => {
-      const requiredFields = form.querySelectorAll('[required]');
-      let isValid = true;
-      let errorMsg = '';
+  form.addEventListener('submit', (e) => {
+  const requiredFields = form.querySelectorAll('[required]');
+  let isValid = true;
+  let errorMsg = '';
 
-      requiredFields.forEach(field => {
-        if (!field.value.trim()) {
-          field.classList.add('error');
-          isValid = false;
-          errorMsg = 'Por favor, completa todos los campos.';
-        } else if (field === emailInput && !emailRegex.test(field.value)) {
-          isValid = false;
-          errorMsg = 'Email inválido.';
-        } else if (field === telInput && !telRegex.test(field.value)) {
-          isValid = false;
-          errorMsg = 'Teléfono inválido (ej: +54 11 1234-5678).';
-        } else {
-          field.classList.remove('error');
-        }
-      });
+  requiredFields.forEach(field => {
+    if (!field.value.trim()) {
+      field.classList.add('error');
+      isValid = false;
+      errorMsg = 'Por favor, completa todos los campos.';
+    } else if (field === emailInput && !emailRegex.test(field.value)) {
+      isValid = false;
+      errorMsg = 'Email inválido.';
+    } else if (field === telInput && !telRegex.test(field.value)) {
+      isValid = false;
+      errorMsg = 'Teléfono inválido (ej: +54 11 1234-5678).';
+    } else {
+      field.classList.remove('error');
+    }
+  });
 
-      if (!isValid) {
-        e.preventDefault();
-        showMessage(errorMsg, 'error');
-        return false;
-      }
-    });
+  if (!isValid) {
+    e.preventDefault(); // SOLO si hay error
+    showMessage(errorMsg, 'error');
+  } else {
+    // Dejá que Netlify procese el envío
+  }
+});
 
     // Mensaje post-submit (para Netlify)
     form.addEventListener('submit', () => {
-      // Netlify maneja el submit; aquí simulamos éxito (puedes ajustar con fetch si quieres)
-      setTimeout(() => {
-        showMessage('¡Mensaje enviado! Te respondo pronto. 😊', 'success');
-        form.reset();
-      }, 1000); // Delay para simular envío
-    });
+  setTimeout(() => {
+    showMessage('¡Mensaje enviado! Te respondo pronto. 😊', 'success');
+    form.reset();
+  }, 1000);
+});
+
 
     function showMessage(text, type) {
       formMessage.textContent = text;
