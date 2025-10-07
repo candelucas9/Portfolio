@@ -131,29 +131,41 @@
       <h2>Contacto</h2>
       <div class="contact-card">
         <p>¿Quieres charlar sobre un proyecto o colaboración? ¡Déjame un mensaje!</p>
-        <form class="contact-form" netlify data-netlify="true" name="contact" netlify>
-          <!-- Honeypot anti-spam (oculto) -->
-          <div class="honeypot">
-            <label>Si eres bot, no llenes esto: <input name="bot-field"></label>
-          </div>
-          <div class="form-group">
-            <input type="text" id="nombre" name="nombre" placeholder="Nombre" required>
-          </div>
-          <div class="form-group">
-            <input type="text" id="apellido" name="apellido" placeholder="Apellido" required>
-          </div>
-          <div class="form-group">
-            <input type="email" id="email" name="email" placeholder="Email" required>
-          </div>
-          <div class="form-group">
-            <input type="tel" id="telefono" name="telefono" placeholder="Número de teléfono" required>
-          </div>
-          <div class="form-group">
-            <textarea id="mensaje" name="mensaje" placeholder="Tu consulta..." rows="5" required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
-          <div id="form-message" class="form-message"></div> <!-- Para mensajes de éxito/error -->
-        </form>
+        <form
+  name="contact"
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  class="contact-form"
+>
+  <!-- Campo oculto obligatorio -->
+  <input type="hidden" name="form-name" value="contact" />
+
+  <!-- Honeypot anti-spam (oculto) -->
+  <div class="honeypot">
+    <label>Si eres bot, no llenes esto: <input name="bot-field" /></label>
+  </div>
+
+  <div class="form-group">
+    <input type="text" id="nombre" name="nombre" placeholder="Nombre" required />
+  </div>
+  <div class="form-group">
+    <input type="text" id="apellido" name="apellido" placeholder="Apellido" required />
+  </div>
+  <div class="form-group">
+    <input type="email" id="email" name="email" placeholder="Email" required />
+  </div>
+  <div class="form-group">
+    <input type="tel" id="telefono" name="telefono" placeholder="Número de teléfono" required />
+  </div>
+  <div class="form-group">
+    <textarea id="mensaje" name="mensaje" placeholder="Tu consulta..." rows="5" required></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+  <div id="form-message" class="form-message"></div>
+</form>
+
       </div>
     </section>
 
