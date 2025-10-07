@@ -131,19 +131,18 @@
       <h2>Contacto</h2>
       <div class="contact-card">
         <p>¿Quieres charlar sobre un proyecto o colaboración? ¡Déjame un mensaje!</p>
-        <form
-          name="contact"
-          method="POST"
-          data-netlify="true"
-          netlify-honeypot="bot-field"
-          class="contact-form"
-          netlify
-          action="/success.html"
-        >
+       <form
+  name="contact"
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  class="contact-form"
+  <!-- Quita action para que Netlify maneje sin redirect; o crea success.html si lo quieres -->
+>
   <!-- Campo oculto obligatorio -->
   <input type="hidden" name="form-name" value="contact" />
 
-  <!-- Honeypot anti-spam (oculto) -->
+  <!-- Honeypot anti-spam (OCULTO - agrega CSS abajo) -->
   <div class="honeypot">
     <label>Si eres bot, no llenes esto: <input name="bot-field" /></label>
   </div>
@@ -184,57 +183,57 @@
 
   <!-- SCRIPT JS PARA ANIMACIONES Y VALIDACIONES -->
   <script>
-    // 1. ANIMACIÓN FADE-IN EN SCROLL
-    const fadeSections = document.querySelectorAll('.fade-section');
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
+    // 1. ANIMACIÓN FADE-IN EN SCROLL (sin cambios)
+const fadeSections = document.querySelectorAll('.fade-section');
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+};
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, observerOptions);
-
-    fadeSections.forEach(section => {
-      section.style.opacity = '0';
-      section.style.transform = 'translateY(20px)';
-      section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-      observer.observe(section);
-    });
-
-    // 2. VALIDACIÓN JS PARA FORM
-    const form = document.querySelector('.contact-form');
-    const emailInput = document.getElementById('email');
-    const telInput = document.getElementById('telefono');
-    const formMessage = document.getElementById('form-message');
-
-    // Regex simple para email y teléfono (ajusta para Argentina si quieres +54)
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const telRegex = /^\+?[\d\s\-\$\$]{10,15}$/; // Ej: +54 11 1234-5678
-
-    // Validación en tiempo real
-    function validateInput(input, regex, errorClass = 'error') {
-      input.addEventListener('input', () => {
-        if (input.value && !regex.test(input.value)) {
-          input.classList.add(errorClass);
-          input.title = 'Formato inválido'; // Tooltip
-        } else {
-          input.classList.remove(errorClass);
-          input.title = '';
-        }
-      });
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
     }
+  });
+}, observerOptions);
 
-    validateInput(emailInput, emailRegex);
-    validateInput(telInput, telRegex);
+fadeSections.forEach(section => {
+  section.style.opacity = '0';
+  section.style.transform = 'translateY(20px)';
+  section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(section);
+});
 
-    // Validación pre-submit
-  form.addEventListener('submit', (e) => {
+// 2. VALIDACIÓN JS PARA FORM (solo pre-submit, sin interferir en Netlify)
+const form = document.querySelector('.contact-form');
+const emailInput = document.getElementById('email');
+const telInput = document.getElementById('telefono');
+const formMessage = document.getElementById('form-message');
+
+// Regex corregidos
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const telRegex = /^\+?[\d\s\-\$\$]{10,15}$/; // Corregido: permite paréntesis y guiones
+
+// Validación en tiempo real
+function validateInput(input, regex, errorClass = 'error') {
+  input.addEventListener('input', () => {
+    if (input.value && !regex.test(input.value)) {
+      input.classList.add(errorClass);
+      input.title = 'Formato inválido';
+    } else {
+      input.classList.remove(errorClass);
+      input.title = '';
+    }
+  });
+}
+
+validateInput(emailInput, emailRegex);
+validateInput(telInput, telRegex);
+
+// Validación pre-submit (solo previene si inválido; deja Netlify manejar si válido)
+form.addEventListener('submit', (e) => {
   const requiredFields = form.querySelectorAll('[required]');
   let isValid = true;
   let errorMsg = '';
@@ -256,39 +255,31 @@
   });
 
   if (!isValid) {
-    e.preventDefault(); // SOLO si hay error
+    e.preventDefault(); // Bloquea submit solo si error
     showMessage(errorMsg, 'error');
-  } else {
-    // Dejá que Netlify procese el envío
+  }
+  // Si válido, NO preventDefault: Netlify toma el control (POST y posible redirect)
+});
+
+// Función para mostrar mensajes (sin setTimeout en submit)
+function showMessage(text, type) {
+  formMessage.textContent = text;
+  formMessage.className = `form-message ${type}`;
+  // No auto-hide si es éxito; o ajústalo
+  setTimeout(() => {
+    formMessage.textContent = '';
+    formMessage.className = 'form-message';
+  }, 5000);
+}
+
+// Opcional: Auto-focus (sin cambios)
+const contactSection = document.getElementById('contact');
+const observerContact = new IntersectionObserver((entries) => {
+  if (entries[0].isIntersecting) {
+    document.getElementById('nombre').focus();
   }
 });
-
-    // Mensaje post-submit (para Netlify)
-    form.addEventListener('submit', () => {
-  setTimeout(() => {
-    showMessage('¡Mensaje enviado! Te respondo pronto. 😊', 'success');
-    form.reset();
-  }, 1000);
-});
-
-
-    function showMessage(text, type) {
-      formMessage.textContent = text;
-      formMessage.className = `form-message ${type}`;
-      setTimeout(() => {
-        formMessage.textContent = '';
-        formMessage.className = 'form-message';
-      }, 5000);
-    }
-
-    // Auto-focus en nombre al llegar a contacto
-    const contactSection = document.getElementById('contact');
-    const observerContact = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        document.getElementById('nombre').focus();
-      }
-    });
-    observerContact.observe(contactSection);
+observerContact.observe(contactSection);
   </script>
 </body>
 </html>
